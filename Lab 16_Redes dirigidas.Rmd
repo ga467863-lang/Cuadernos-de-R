@@ -1,0 +1,50 @@
+---
+title: "Lab 16_ Redes dirigidas y noDirigidas"
+author: "Cony"
+date: "2025-10-03"
+output: html_document
+---
+Laboratorio 16
+Hecho por : Maria Concepcion  Garcia Pérez
+
+Cargar libreria
+```{r}
+library(EconGeo)
+```
+
+cargar data
+```{r}
+EL <- read.csv("lesmis-el.csv")
+
+head(EL)
+```
+
+Transformar a matriz
+```{r}
+Mn <- get_matrix(EL)
+Mn
+
+library(igraph)
+g <- graph_from_data_frame(d=EL, directed = FALSE)
+plot(g)
+
+EL$Weight= NULL
+
+head(EL)
+
+install.packages("networkD3")
+library(networkD3)
+simpleNetwork(EL)
+```
+
+Ver matriz simetrica (no dirigida - red bidireccional)
+diferencias entre red no dirigida y dirigida
+
+
+
+
+
+
+
+
+
