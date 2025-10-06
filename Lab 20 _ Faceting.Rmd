@@ -1,0 +1,57 @@
+---
+title: "Lab 20 _ Faceting"
+author: "Cony"
+date: "2025-10-03"
+output: html_document
+---
+Hecho con gusto por Carla Carolina Pérez Hernández (UAEH)
+Maria Concepcion Garcia Pérez
+
+
+LABORATORIO - Gráficos en R con ggplot2 
+faceting (romper un gráfica en varias dentro de una cuadrícula)
+
+
+instalando paquete 
+install.packages("ggplot2")
+```{r}
+
+```
+
+cargar libreria ggplot2 
+```{r}
+library(ggplot2)
+```
+buscar df
+
+```{r}
+file.choose()
+```
+
+leer base
+```{r}
+densidad_verde <- read.csv("C:\\Users\\Cony\\Documents\\1.- UAEH\\3.- Doctorado UAEH\\4.- Cuarto Semestre Complejidad\\Modulo III\\1.- Laboratorios\\Lab 20\\PARA FACETING.csv")
+```
+ver nombres
+```{r}
+names(densidad_verde)
+```
+colocando grafica base
+crear objeto p
+
+```{r}
+p <- ggplot(data = densidad_verde,
+            mapping = aes(x = DENSITY,
+                          y = PCI.2018,
+                          color = Region)) +
+  geom_point()
+```
+
+facet_wrap (recomendado con una variable)
+manipulando número de filas
+ manipulando número de columnas
+```{r}
+p + facet_wrap(~ Region, ncol = 5)
+```
+ 
+
