@@ -1,0 +1,89 @@
+---
+title: "Lab 9 _ EP Relacionamiento"
+author: "Cony"
+date: "2025-10-03"
+output: html_document
+---
+
+Hecho con gusto por Carla Carolina Pérez Hernández (UAEH)
+Adaptado por: Alumna: María Concepción García Pérez
+
+T1_03_ESPACIO PRODUCTO(2) - RELACIONAMIENTO "CASO REAL": EXPORTACIONES HIDALGUENSES
+
+Objetivo: Estimar el relacionamiento (relatedness, proximidad, métrica de distancia entre productos)
+
+En este ejercicio vamos a:
+1. Cargar nuestra matriz de datos
+2. Calcular co ocurrencias entre lugares y productos 
+3. Estimar el relacionamiento, teniendo como input las co ocurrencias
+4. Graficar
+5. Exportar los resultados para trabajarlos con cytoscape o gephi
+
+practica 2: exportaciones hidalguenses 
+
+Carga de paqueterias
+install.packages("EconGeo")
+```{r}
+
+library (EconGeo)
+```
+
+seleccionar archivo desde la ruta de su ordenador
+```{r}
+M = as.matrix(
+  read.csv("~/1.- UAEH/3.- Doctorado UAEH/4.- Cuarto Semestre Complejidad/Modulo II - Practica complejidad/2.- Laboratorios/Lab 9/rca_2014.csv", 
+           sep = ",", 
+           header = T, 
+           row.names = 1))
+
+head (M[,1:10])
+dim (M)
+```
+
+co-ocurrencia entre personas/paises/estados
+```{r}
+C <- co_occurrence(M, list = FALSE)
+c
+```
+
+co-ocurrencia entre productos t es transpuesta
+```{r}
+Ct <- co_occurrence(t(M), list = FALSE)
+Ct
+```
+estima el relacionamiento o proximidad pero normalizado, para asegurar que el numero de co ocurrencias que observamos
+
+```{r}
+r <- relatedness(Ct)
+r
+```
+
+es mayor al numero de co ocurrencias probables (probailidad condicional)
+tie and Surfboard puede que no esten tan relacionados, abajo de  1 no es relacionado mientras que mayor a 1 si es relacionado
+```{r}
+r[r<1] =0
+r[r>1] =1
+
+```
+exportar resultados del relacionamiento no binario
+```{r}
+library (igraph)
+
+
+library (igraph)
+g1=graph_from_adjacency_matrix(r,mode = "undirected")
+plot(g1)
+```
+exportar resultados del relacionamiento binario
+exportar resultados de co ocurrencias
+```{r}
+
+write.csv(r,file="relatedness,csv")
+
+write.csv(c,file="cocurrences,csv")
+```
+
+
+
+
+
