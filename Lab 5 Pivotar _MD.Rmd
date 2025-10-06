@@ -1,0 +1,53 @@
+---
+title: "Lab 5 Pivotar_MarkD"
+author: "Cony"
+date: "2025-10-02"
+output:
+  pdf_document: default
+  html_document: default
+---
+Actualizado y modificado por: Maria concepción Garcia Pérez basado en el script de Carla Carolina Pérez
+
+Laboratorio - PIVOTAR A LO LARGO
+
+
+Cargar paqueterias
+```{r}
+install.packages("tidyverse")
+install.packages("readr")
+```
+
+
+
+cargar datos
+```{r}
+library(readr)
+IEC2014 <- read_csv("1.- UAEH/3.- Doctorado UAEH/4.- Cuarto Semestre Complejidad/Modulo II - Practica complejidad/2.- Laboratorios/Lab 5/IEC2014.csv")
+View(IEC2014)
+
+names(IEC2014)
+```
+
+
+Pivotar tabla a lo largo
+```{r}
+library(dplyr)
+library(tidyr)
+
+t1_PIVOTANTE <- IEC2014 %>%
+  pivot_longer(
+    cols = c("Ks,0", "Ks,2", "Ks,4", "Ks,6", "Ks,8", 
+             "Ks,10", "Ks,12", "Ks,14", "Ks,16", "Ks,18", "Ks,20"),
+    names_to = "iteracion",
+    values_to = "ranking"
+  )
+```
+
+Exportar resultado: tabla ordenada
+```{r}
+write.csv(t1_PIVOTANTE, file = "ice_CHARTICULATOR.csv")
+```
+
+
+
+
